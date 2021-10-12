@@ -1,0 +1,46 @@
+<template>
+  <v-container>
+    <v-sheet>
+      <v-img width="100%" src="../../assets/hero-img.jpg" alt="">
+      <v-col>
+          <v-sheet color="grey darken-4"></v-sheet>
+      </v-col>
+      
+        <h2 class="intro-text" >La innovación a tu alcance</h2>
+        <p class="description">
+          Las últimas novedades y noticias de tecnología en un solo lugar.
+        </p>
+        <v-btn color="grey darken-4" dark x-large>¡Suscribete ya!</v-btn>
+        </v-img>
+    </v-sheet>
+  </v-container>
+</template>
+
+<script>
+export default {
+  name: "Hero",
+};
+</script>
+
+<style>
+.v-sheet {
+    margin: 0px 0px !important;
+}
+h2.intro-text {
+  font-size: 48px !important;
+  color: #ffffff;
+  font-family: "Noto Serif" !important;
+  font-weight: bold !important;
+}
+p.description {
+  font-size: 19px;
+  margin: 32px 0px;
+  color: #ffffff;
+}
+.v-btn {
+  font-size: 16px !important;
+  text-transform: none !important;
+  font-family: "Montserrat" !important;
+  font-weight: 400 !important;
+}
+</style>
