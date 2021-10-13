@@ -1,19 +1,17 @@
 <template>
-  <v-container>
-    <v-sheet>
-      <v-img width="100%" src="../../assets/hero-img.jpg" alt="">
+  <v-sheet height="880">
+    <v-img width="100%" min-height="768px" max-height="840" src="../../assets/hero-img.jpg" alt="">
       <v-col>
-          <v-sheet color="grey darken-4"></v-sheet>
+        <v-sheet color="grey darken-4"></v-sheet>
       </v-col>
-      
-        <h2 class="intro-text" >La innovación a tu alcance</h2>
-        <p class="description">
-          Las últimas novedades y noticias de tecnología en un solo lugar.
-        </p>
-        <v-btn color="grey darken-4" dark x-large>¡Suscribete ya!</v-btn>
-        </v-img>
-    </v-sheet>
-  </v-container>
+
+      <h2 class="intro-text">La innovación a tu alcance</h2>
+      <p class="description">
+        Las últimas novedades y noticias de tecnología en un solo lugar.
+      </p>
+      <v-btn color="grey darken-4" dark x-large>¡Suscribete ya!</v-btn>
+    </v-img>
+  </v-sheet>
 </template>
 
 <script>
@@ -24,7 +22,7 @@ export default {
 
 <style>
 .v-sheet {
-    margin: 0px 0px !important;
+  margin: 0px 0px !important;
 }
 h2.intro-text {
   font-size: 48px !important;

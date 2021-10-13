@@ -29,8 +29,9 @@ export default {
         { title: "Ingresar", route: "about-us" },
       ],
       sections: [
+        { title: "Inicio", route: "/" },
         { title: "¿Qué es Radiance?", route: "/AboutUs" },
-        { title: "¿Eres un Radianacer?", route: "/Community" },
+        { title: "¿Eres un Radianacer?", route: "/Radianacer" },
         { title: "Personalización", route: "/Tecnologies" },
         { title: "Nuestro Equipo", route: "/Team" },
         { title: "Suscribete Ya!", route: "/prices" },
