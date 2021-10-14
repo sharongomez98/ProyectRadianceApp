@@ -1,44 +1,36 @@
 <template>
-  <v-sheet class="pa-12 mx-14 my-16">
-    <p></p>
-    <h2 class="about-title text-center">Personalización</h2>
-    <v-spacer></v-spacer>
-    <p class="description color text-center my-12">
+  <v-sheet class="pa-12 mx-14 my-10">
+    <h2 class="about-title text-center pa-6">Tecnologías</h2>
+    <p class="description text-center my-12">
       La revista Radiance esta enfocada a ser un lugar informativo de soporte. Con las mas
       recientes noticias acerca de las tecnologías del momento, Radiance es el lugar para
       ti. En nuestra comunidad destacan los siguientes grupos.
     </p>
     <v-spacer></v-spacer>
-    
-    <v-row justify="space-around" class="mx-12 my-6">
-      <v-col v-for="value in values" :key="value" cols="12" md="3">
-        <v-sheet
-          class="pa-6 mx-auto"
-          height="150"
-          width="100"
-          elevation="2"
-          min-width="30vh"
-          :color="value.color"
-        >
-          <v-row>
-            <v-col cols="6">
-              <v-icon size="100" class="mx-auto" color="grey-darken-4">{{ value.icon }}</v-icon>
-            </v-col>
-            <v-col cols="6" class="py-12">
-                <h3 class="text-center about-title">{{ value.title }}</h3>
-            </v-col>
-          </v-row>
-        </v-sheet>
+    <v-row justify="center">
+      <v-col v-for="value in values" :key="value"  lg="3" md="4" sx="12" class="px-12">
+        <v-hover>
+          <template v-slot:default="{ hover }">
+            <div :class="`elevation-${hover ? 24 : 0}`" class="mx-auto transition-swing">
+              <v-sheet :color="value.color" class="pa-10" height="300" min-width="20vh">
+                  <v-row justify="center" class="pa-3">
+                  <v-icon size="150" color="grey-darken-4">{{ value.icon }}</v-icon>
+                </v-row>
+                <v-row justify="center" class="py-3">
+                  <h3 class="text-center item-title">{{ value.title }}</h3>
+                </v-row>
+              </v-sheet>
+            </div>
+          </template>
+        </v-hover>
       </v-col>
     </v-row>
-    <p class="description color text-center mt-8">
-      ... y muchas más!
-    </p>
+    <p class="description color text-center pt-8">... y muchas más!</p>
   </v-sheet>
 </template>
 <script>
 export default {
-  name: "Radianacer",
+  name: "Tecnologies",
   data() {
     return {
       values: [
@@ -59,21 +51,3 @@ export default {
   },
 };
 </script>
-
-<style>
-h2.about-title {
-  font-size: 48px !important;
-  color: grey-darken-4;
-  font-family: "Noto Serif" !important;
-  font-weight: bold !important;
-}
-h3.about-title {
-  color: grey darken-4 !important;
-  font-family: "Montserrat" !important;
-  font-weight: bold !important;
-}
-
-p.color {
-  color: #000000 !important;
-}
-</style>

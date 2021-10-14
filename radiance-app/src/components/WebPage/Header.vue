@@ -9,7 +9,7 @@
       </v-list-item>
     </v-list>
     <template v-slot:extension>
-      <v-tabs dark align-with-title fixed-tabs background-color="grey darken-4">
+      <v-tabs dark align-with-title fixed-tabs background-color="grey darken-4" show-arrows>
         <v-tabs-slider color="#F37154"></v-tabs-slider>
         <v-tab v-for="section in sections" :key="section" :to="section.route">
           {{ section.title }}
@@ -29,12 +29,12 @@ export default {
         { title: "Ingresar", route: "about-us" },
       ],
       sections: [
-        { title: "Inicio", route: "/" },
+        { title: "Inicio", route: "/Hero" },
         { title: "¿Qué es Radiance?", route: "/AboutUs" },
         { title: "¿Eres un Radianacer?", route: "/Radianacer" },
-        { title: "Personalización", route: "/Tecnologies" },
+        { title: "Tecnologías", route: "/Tecnologies" },
         { title: "Nuestro Equipo", route: "/Team" },
-        { title: "Suscribete Ya!", route: "/prices" },
+        { title: "Suscribete Ya!", route: "/Suscribe" },
       ],
     };
   },
