@@ -1,16 +1,17 @@
-<template>
+<template ref="#aboutUs">
   <v-sheet class="pa-12 mx-14 my-10">
     <p></p>
     <h2 class="section-title text-center">¿Qué es Radiance?</h2>
     <v-spacer></v-spacer>
     <p class="description text-center my-12">
       Radiance es un proyecto que busca ser el centro de información tecnológica más
-      grande y confiable de la red global, brindando informacioón relevante de las
-      tecnologías más importantes y cambiantes de nuestra era.
+      grande y confiable de la red global, brindando información relevante de las
+      tecnologías más importantes y cambiantes de nuestra era. Radiance inicia en 2021
+      bajo una filosofía basada en los siguientes valores:
     </p>
     <v-spacer></v-spacer>
     <v-row justify="space-around">
-      <v-col v-for="value in values" :key="value" lg="3" md="4" sx="12">
+      <v-col v-for="(value, index) in values" :key="index" lg="3" md="4" sx="12">
         <v-hover>
           <template v-slot:default="{ hover }">
             <div
@@ -40,12 +41,12 @@ export default {
         {
           title: "Verdad",
           icon: "mdi-shield-check",
-          text: "Para transmitir siempre informacion confiable y segura.",
+          text: "Buscamos transmitir información confiable y segura.",
         },
         {
           title: "Compromiso",
           icon: "mdi-handshake",
-          text: "Con nuestros lectores brindando informacion de calidad.",
+          text: "Con nuestros lectores brindando informacion útil y de calidad.",
         },
         {
           title: "Pasión",
@@ -55,7 +56,8 @@ export default {
         {
           title: "Soporte",
           icon: "mdi-cog",
-          text:"Servir como herramienta de apoyo para todos los seguidores de la tecnología.",
+          text:
+            "Servir como herramienta de apoyo para todos los seguidores de la tecnología.",
         },
       ],
     };

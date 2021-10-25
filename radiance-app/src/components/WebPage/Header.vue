@@ -8,10 +8,22 @@
         <v-list-item-title>{{ menu.title }}</v-list-item-title>
       </v-list-item>
     </v-list>
+    <div>
+      <p>{{route}}</p>
+    </div>
     <template v-slot:extension>
-      <v-tabs dark align-with-title fixed-tabs background-color="grey darken-4" show-arrows>
-        <v-tabs-slider color="#F37154"></v-tabs-slider>
-        <v-tab v-for="section in sections" :key="section" :to="section.route">
+      <v-tabs
+        ref="s"
+        dark
+        align-with-title
+        fixed-tabs
+        background-color="grey darken-4"
+        show-arrows
+        v-model="route" 
+        @change='passTabProperties()'
+      >
+        <v-tabs-slider color="#F37154" ></v-tabs-slider>
+        <v-tab v-for="(section, index) in sections" :key="index" >
           {{ section.title }}
         </v-tab>
       </v-tabs>
@@ -22,21 +34,25 @@
 <script>
 export default {
   name: "Header",
-  data() {
-    return {
+  data: () => ({
+      route: 0,
       menus: [
         { title: "Registrate", route: "home" },
         { title: "Ingresar", route: "about-us" },
       ],
       sections: [
-        { title: "Inicio", route: "/Hero" },
-        { title: "¿Qué es Radiance?", route: "/AboutUs" },
-        { title: "¿Eres un Radianacer?", route: "/Radianacer" },
-        { title: "Tecnologías", route: "/Tecnologies" },
-        { title: "Nuestro Equipo", route: "/Team" },
-        { title: "Suscribete Ya!", route: "/Suscribe" },
+        { title: "Inicio" },
+        { title: "¿Qué es Radiance?" },
+        { title: "¿Eres un Radianacer?" },
+        { title: "Tecnologías" },
+        { title: "Nuestro Equipo"},
+        { title: "Suscribete Ya!" },
       ],
-    };
+  }),
+  methods: {
+    passTabProperties() {
+      this.$emit('chanceNav', this.route)
+    },
   },
 };
 </script>

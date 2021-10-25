@@ -2,7 +2,7 @@
   <v-sheet class="pa-12 mx-14 my-10">
     <h2 class="section-title text-center pa-6">Nuestro Equipo</h2>
     <v-row justify="space-around" class="py-6">
-      <v-col v-for="value in values" :key="value">
+      <v-col v-for="(value, index) in values" :key="index">
         <v-hover>
           <template v-slot:default="{ hover }">
             <div
@@ -37,7 +37,7 @@ export default {
           title: "Más de 50 ...",
           img: "team",
           text:
-            "personas de distintas partes del mundo, trabajadores informáticos que comparten la pasión por la tecnología que plasman sus conocimientos, ideas y experiencias con las tendencias más actuales del mercado.",
+            "personas de distintas partes del mundo; trabajadores informáticos que comparten la pasión por la tecnología que buscan plasmar sus conocimientos, ideas y experiencias con las tendencias más actuales del mercado.",
         },
       ],
     };

@@ -13,7 +13,7 @@
             <v-col class="mx-13">
               <h2 class="intro-text">La innovación a tu alcance</h2>
               <p class="description-hero" >
-                Las últimas novedades y noticias de tecnología en un solo lugar.
+                Las últimas novedades y noticias de tus tecnologías en un solo lugar.
               </p>
               <v-btn color="grey darken-4" dark x-large>¡Suscribete ya!</v-btn>
             </v-col>

@@ -2,13 +2,13 @@
   <v-sheet class="pa-12 mx-14 my-10">
     <h2 class="about-title text-center pa-6">Tecnologías</h2>
     <p class="description text-center my-12">
-      La revista Radiance esta enfocada a ser un lugar informativo de soporte. Con las mas
-      recientes noticias acerca de las tecnologías del momento, Radiance es el lugar para
-      ti. En nuestra comunidad destacan los siguientes grupos.
+      El proyecto Radiance cuenta con una gran lista de tecnologías por las que esta al pendiente
+      para poder brindarte la información que como Radianacer necesitas, en el momento adecuado. Una muestra
+      de las tecnologías con las que trabajamos para mantenerte al tanto son:
     </p>
     <v-spacer></v-spacer>
     <v-row justify="center">
-      <v-col v-for="value in values" :key="value"  lg="3" md="4" sx="12" class="px-12">
+      <v-col v-for="(value, index) in values" :key="index"  lg="3" md="4" sx="12" class="px-12">
         <v-hover>
           <template v-slot:default="{ hover }">
             <div :class="`elevation-${hover ? 24 : 0}`" class="mx-auto transition-swing">

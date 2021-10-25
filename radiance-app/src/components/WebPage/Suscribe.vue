@@ -2,7 +2,7 @@
   <v-sheet class="pa-12 mx-14 my-10">
     <h2 class="about-title text-center pa-6">Suscribete Ya!</h2>
     <v-row justify="space-around" class="py-12">
-      <v-col v-for="value in values" :key="value" lg="4" md="4" sx="4">
+      <v-col v-for="(value, index) in values" :key="index" lg="5" md="4" sx="3">
         <v-hover>
           <template v-slot:default="{ hover }">
             <div
@@ -40,7 +40,7 @@ export default {
           color: "#F37154",
           price: "$4.99",
           text:
-            "personas de distintas partes del mundo, trabajadores informáticos que comparten la pasión por la tecnología que plasman sus conocimientos, ideas y experiencias con las tendencias más actuales del mercado.",
+            "Al suscribirte, tendrás acceso a más de 1,000 artículos  y a todos los artículos nuevos por venir, escritos por el equipo de Radiance, que buscan impulsarte y darte el plus en tu vida laboral, estudiantil o descubrir una nueva pasión por la tecnología.",
         },
       ],
     };
