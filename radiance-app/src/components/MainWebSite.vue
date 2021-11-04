@@ -4,7 +4,7 @@
     <v-icon color="#F37154" large>mdi-lightning-bolt</v-icon>
     <v-toolbar-title>Radiance</v-toolbar-title>
     <v-spacer />
-    <v-list class="d-flex align-center">
+    <v-list class="d-flex align-center" dense>
       <v-list-item link v-for="(menu, index) in menus" :key="index" :to="menu.route">
         <v-list-item-title>{{ menu.title }}</v-list-item-title>
       </v-list-item>
@@ -42,7 +42,7 @@
 
 <script>
 export default {
-  name: "ScrollMain",
+  name: "MainWebSite",
 
   components: {
     Hero: () => import("./WebPage/Hero.vue"),
@@ -99,7 +99,7 @@ export default {
   methods: {
     changeRoute() {
       this.$emit("changeRoute", this.route);
-    }
+    },
   },
 };
 </script>

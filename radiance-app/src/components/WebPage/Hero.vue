@@ -15,7 +15,7 @@
               <p class="description-hero" >
                 Las últimas novedades y noticias de tus tecnologías en un solo lugar.
               </p>
-              <v-btn color="grey darken-4" dark x-large>¡Suscribete ya!</v-btn>
+              <v-btn color="grey darken-4" dark x-large  to="/register">¡Suscribete ya!</v-btn>
             </v-col>
           </v-row>
         </v-container>
