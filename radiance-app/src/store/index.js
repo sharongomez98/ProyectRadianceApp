@@ -15,6 +15,7 @@ export default new Vuex.Store({
     isAuthenticated: false,
     expandSideBar: false,
     loginError: "",
+    role: ""
   },
   mutations: {
     setLoginError: function (state, error) {
@@ -28,6 +29,9 @@ export default new Vuex.Store({
     },
     setUserName: function (state, username) {
       state.username = username;
+    },
+    setRole: function (state, role) {
+      state.role = role;
     },
     // sets state with user information and toggles
     // isAuthenticated from false to true
@@ -50,6 +54,7 @@ export default new Vuex.Store({
       state.isAuthenticated = false;
       state.expandSideBar = false;
       state.loginError = "400";
+      state.role = "";
     },
   },
   actions: {
@@ -60,7 +65,9 @@ export default new Vuex.Store({
       commit("setIsAuthenticated", true);
       commit("setExpandSideBar", true);
       commit("setLoginError", "200");
-      router.push("/home");
+      commit("setRole", payload.role);
+      router.push("/radiance");
+      
  
     },
 
@@ -76,5 +83,6 @@ export default new Vuex.Store({
     expandSideBar: (state) => state.expandSideBar,
     accessToken: (state) => state.access_token,
     refreshToken: (state) => state.refresh_token,
+    role: (state) => state.role,
   },
 });

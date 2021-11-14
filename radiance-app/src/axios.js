@@ -1,4 +1,5 @@
 import axios from "axios";
+import router from "./router";
 import store from "./store";
 
 export default function axiosSetUp() {
@@ -33,6 +34,9 @@ export default function axiosSetUp() {
     },
     function (error) {
       console.log(error);
+      if(error.response.status == 401) {
+        router.push("/login");
+      }
       return Promise.reject(error);
     }
   );

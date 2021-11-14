@@ -3,7 +3,7 @@
     <v-layout class="pt-12">
       <v-card color="grey darken-4" dark>
         <v-card-title class="mx-6"
-          ><v-icon large class="mx-3"> mdi-tag-outline </v-icon>Tags</v-card-title
+          ><v-icon large class="mx-3"> mdi-tag </v-icon>Tags</v-card-title
         >
       </v-card>
     </v-layout>
