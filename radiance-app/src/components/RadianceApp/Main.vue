@@ -85,7 +85,7 @@
         >
       </div>
       <div v-if="list == 0">
-        <Hero />
+        <home />
       </div>
       <div v-if="list == 1">
         <Tags @chanceAlert="changeAlert($event)" />
@@ -108,7 +108,7 @@ import store from "../../store/index";
 export default {
   name: "Main",
   components: {
-    Hero: () => import("../WebPage/Hero.vue"),
+    home: () => import("./Home.vue"),
     AboutUs: () => import("../WebPage/AboutUs.vue"),
     Tags: () => import("./Tags.vue"),
     SuscriptionTypes: () => import("./SuscriptionTypes.vue"),
