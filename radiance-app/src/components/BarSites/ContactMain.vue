@@ -36,7 +36,7 @@
                       placeholder="Correo electrónico"
                       name="username"
                       prepend-inner-icon="mdi-at"
-                      type="text"
+                      type="email"
                       solo
                       color="#F37154"
                       v-model="user.username"
