@@ -46,10 +46,7 @@
       <v-divider></v-divider>
       <v-list dense nav>
         <v-subheader class="navSubtitle">Menú</v-subheader>
-        <v-list-item-group
-          active-class="deep-orange lighten-3"
-          v-model="list"
-        >
+        <v-list-item-group active-class="deep-orange lighten-3" v-model="list">
           <v-list-item
             class="pa-2"
             v-for="(item, index) in items"
@@ -66,6 +63,8 @@
           </v-list-item>
         </v-list-item-group>
       </v-list>
+      <span>{{ this.list }}</span>
+      <span>{{ this.screenLoading }}</span>
       <v-divider></v-divider>
     </v-navigation-drawer>
     <v-main>
@@ -94,7 +93,10 @@
         <AboutUs />
       </div>
       <div v-if="list == 3">
-        <Users />
+        <Users @chanceAlert="changeAlert($event)" />
+      </div>
+      <div v-if="list == 4">
+        <Payments @chanceAlert="changeAlert($event)" />
       </div>
       <div v-if="list == 5">
         <SuscriptionTypes @chanceAlert="changeAlert($event)" />
@@ -113,6 +115,8 @@ export default {
     Tags: () => import("./Tags.vue"),
     SuscriptionTypes: () => import("./SuscriptionTypes.vue"),
     Users: () => import("./Users.vue"),
+    Payments: ()=> import("./Payments.vue"),
+    LoadingView: () => import("./LoadingView.vue"),
   },
   data: () => ({
     list: 0,
@@ -123,14 +127,15 @@ export default {
     alert_active: false,
     alert_message: "",
     alert_color: "",
+    screenLoading: false,
     items: [
-      { title: "Home", icon: "mdi-home" },
-      { title: "Tags", icon: "mdi-tag" },
-      { title: "Artículos", icon: "mdi-newspaper-variant" },
-      { title: "Usuarios", icon: "mdi-account-multiple" },
-      { title: "Pagos", icon: "mdi-wallet" },
-      { title: "Suscripciones", icon: "mdi-format-list-checks" },
-      { title: "Reportes", icon: "mdi-chart-tree" },
+      { title: "Home", icon: "mdi-home", path: "/home" },
+      { title: "Tags", icon: "mdi-tag", path: "/tags" },
+      { title: "Artículos", icon: "mdi-newspaper-variant", path: "/articles" },
+      { title: "Usuarios", icon: "mdi-account-multiple", path: "/users" },
+      { title: "Pagos", icon: "mdi-wallet", path: "/payments" },
+      { title: "Suscripciones", icon: "mdi-format-list-checks", path: "/suscriptions" },
+      { title: "Reportes", icon: "mdi-chart-tree", path: "/reports" },
     ],
     userMenu: [
       { title: "Ver Perfil", icon: "mdi-account", to: "/contact" },
@@ -146,8 +151,8 @@ export default {
     drawer: false,
   },
 
-  mounted: function(){
-    if(alert){
+  mounted: function () {
+    if (alert) {
       this.hideAlert();
     }
   },
@@ -156,7 +161,7 @@ export default {
     hideAlert() {
       window.setInterval(() => {
         this.alert = false;
-      }, 6000)
+      }, 5000);
     },
     repaint() {
       this.drawer = !this.drawer;
@@ -170,12 +175,16 @@ export default {
       store.commit("clearUserData");
       this.$router.push("/");
     },
-    changeAlert(alert){
+    changeAlert(alert) {
       this.alert = alert.alert;
       this.alert_active = alert.alert_active;
       this.alert_color = alert.alert_color;
       this.alert_message = alert.alert_message;
-    }
+    },
+    showLoadingScreen(value) {
+      this.screenLoading = value;
+      console.log("loadingScreen:", this.screenLoading);
+    },
   },
 };
 </script>

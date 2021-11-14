@@ -5,6 +5,7 @@ import Login from "./components/BarSites/Login.vue";
 import Register from "./components/BarSites/Register.vue"
 import Contact from "./components/BarSites/Contact.vue"
 import Main from "./components/RadianceApp/Main.vue"
+import store from './store'
 
 Vue.use(VueRouter);
 const routes = [
@@ -32,12 +33,33 @@ const routes = [
     path: "/home",
     name: "Main",
     component: Main,
+    meta: {
+      requiresAuth: true
+  }
+  },
+  {
+    path: "/tags",
+    name: "Main",
+    component: Main,
+    meta: {
+      requiresAuth: true,
+      module: "tags"
+  }
   },
 ];
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  let authenticatedUser = store.getters['isAuthenticated']
+  
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+
+  if (requiresAuth && !authenticatedUser) next('/login')
+  else next();
 });
 
 export default router;

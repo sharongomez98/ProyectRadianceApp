@@ -190,7 +190,7 @@ export default {
       this.loading = true;
       axios.get("tag/").then((response) => {
         if (response.status == 200) {
-          this.tags = response.data.tags;
+          this.tags = response.data;
         } else {
           console.log(response.status);
         }

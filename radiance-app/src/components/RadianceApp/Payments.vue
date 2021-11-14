@@ -3,7 +3,7 @@
     <v-layout class="pt-12">
       <v-card color="grey darken-4" dark>
         <v-card-title class="mx-6"
-          ><v-icon large class="mx-3">mdi-account-multiple </v-icon>Usuarios</v-card-title
+          ><v-icon large class="mx-3">mdi-wallet </v-icon>Pagos</v-card-title
         >
       </v-card>
     </v-layout>
@@ -23,150 +23,100 @@
         >
           <template v-slot:top>
             <v-card elevation="0">
-              <v-dialog v-model="dialog" max-width="500px">
-                <template v-slot:activator="{ on, attrs }">
-                  <v-layout justify-end>
-                    <v-btn
-                      class="ma-6"
-                      color="grey darken-4"
-                      dark
-                      x-large
-                      v-bind="attrs"
-                      v-on="on"
-                      >Nuevo Usuario</v-btn
-                    >
-                  </v-layout>
-                </template>
+              <v-dialog v-model="dialog" max-width="700px">
                 <v-card>
                   <v-card-title>
                     <span class="text-h5">{{ formTitle }}</span>
                   </v-card-title>
                   <v-card-text>
                     <v-container>
-                      <h3 class="format">Datos personales</h3>
-                      <v-text-field
-                        label="Nombres y Apellidos"
-                        placeholder="Nombres y Apellidos"
-                        name="name"
-                        type="text"
-                        solo
-                        v-model="editedItem.name"
-                      >
-                      </v-text-field>
-                      <v-text-field
-                        label="Correo electrónico"
-                        placeholder="Correo electrónico"
-                        name="email"
-                        type="email"
-                        solo
-                        v-model="editedItem.mail"
-                      >
-                      </v-text-field>
-                      <v-text-field
-                        label="Teléfono"
-                        placeholder="Teléfono"
-                        name="phone"
-                        type="number"
-                        solo
-                        v-model="editedItem.phoneNumber"
-                      >
-                      </v-text-field>
-                      <h3 class="format">Datos del usuario</h3>
-                      <v-text-field
-                        label="Usuario"
-                        placeholder="Usuario"
-                        name="username"
-                        type="text"
-                        solo
-                        v-model="editedItem.user"
-                      >
-                      </v-text-field>
-                      <v-text-field
-                        :type="showPassword ? 'text' : 'password'"
-                        id="password"
-                        label="Contraseña"
-                        placeholder="Contraseña"
-                        name="password"
-                        solo
-                        color="#F37154"
-                        v-model="editedItem.password"
-                        :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                        @click:append="showPassword = !showPassword"
-                      ></v-text-field>
-                      <h3 class="format">Datos de la suscripción</h3>
-                      <v-subheader>Tipo de suscripción</v-subheader>
-                      
-                      <v-row class="py-3">
-                        <v-autocomplete
-                          v-model="editedItem.subscriptionType"
-                          :items="suscriptionTypes"
-                          solo
-                          chips
-                          color="deep-orange lighten-3"
-                          item-text="name"
-                          return-object
-                        >
-                        </v-autocomplete>
-                      </v-row>
-                      <h3 class="format">Datos de pago</h3>
-                      <v-text-field
-                        label="Número de tarjeta crédito/débito"
-                        placeholder="XXXX XXXX XXXX XXXX"
-                        name="username"
-                        type="number"
-                        solo
-                        v-model="editedItem.card"
-                      >
-                      </v-text-field>
-                      <v-text-field
-                        label="Fecha de expiración"
-                        placeholder="MM/YY"
-                        name="username"
-                        type="text"
-                        solo
-                        v-model="editedItem.expirationDate"
-                      >
-                      </v-text-field>
-                      <v-text-field
-                        label="CVC"
-                        placeholder="CVC"
-                        name="username"
-                        type="text"
-                        solo
-                        v-model="editedItem.card"
-                      >
-                      </v-text-field>
+                      <v-subheader>Detalles de usuario</v-subheader>
+                      <v-container>
+                        <v-simple-table>
+                          <template v-slot:default>
+                            <thead>
+                              <tr>
+                                <th class="text-center">Propiedad</th>
+                                <th class="text-center">Valor</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td class="text-center">{{ "Nombre de usuario" }}</td>
+                                <td class="text-center">{{ editedItem.name }}</td>
+                              </tr>
+                              <tr>
+                                <td class="text-center">{{ "Usuario" }}</td>
+                                <td class="text-center">{{ editedItem.user }}</td>
+                              </tr>
+                              <tr>
+                                <td class="text-center">{{ "Correo" }}</td>
+                                <td class="text-center">{{ editedItem.mail }}</td>
+                              </tr>
+                              <tr>
+                                <td class="text-center">{{ "Teléfono" }}</td>
+                                <td class="text-center">{{ editedItem.phoneNumber }}</td>
+                              </tr>
+                              <tr>
+                                <td class="text-center">{{ "Rol Actual" }}</td>
+                                <td class="text-center">{{ editedItem.role }}</td>
+                              </tr>
+                            </tbody>
+                          </template>
+                        </v-simple-table>
+                      </v-container>
+                      <v-subheader>Detalles de suscripción</v-subheader>
+                      <v-container>
+                        <v-simple-table>
+                          <template v-slot:default>
+                            <tbody>
+                              <tr>
+                                <td class="text-center">{{ "Fecha de finalización" }}</td>
+                                <td class="text-center">{{ editedItem.subscription.finalizationDate }}</td>
+                              </tr>
+                              <tr>
+                                <td class="text-center">{{ "Suscripción actual" }}</td>
+                                <td class="text-center">
+                                  {{ editedItem.subscription.subscriptionType.name }}
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="text-center">{{ "Precio de suscripción" }}</td>
+                                <td class="text-center">
+                                  {{ "$"
+                                  }}{{ editedItem.subscription.subscriptionType.price }}
+                                </td>
+                              </tr>
+                            </tbody>
+                          </template>
+                        </v-simple-table>
+                      </v-container>
+                      <v-subheader>Historial de pagos</v-subheader>
+                      <v-container>
+                        <v-simple-table>
+                          <template v-slot:default>
+                            <thead>
+                              <tr>
+                                <th class="text-center">Monto</th>
+                                <th class="text-center">Fecha</th>
+                                
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr v-for="(item, index) in historyItem" :key="index">
+                                <td class="text-center">{{ item.amount }}</td>
+                                <td class="text-center">{{ item.date }}</td>
+                                
+                              </tr>
+                            </tbody>
+                          </template>
+                        </v-simple-table>
+                      </v-container>
                     </v-container>
                   </v-card-text>
                   <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn depressed @click="close"> Cancelar </v-btn>
-                    <v-btn
-                      depressed
-                      color="primary"
-                      :loading="loading"
-                      @click="save(editedItem)"
-                    >
-                      Guardar
-                    </v-btn>
-                  </v-card-actions>
-                </v-card>
-              </v-dialog>
-              <v-dialog v-model="dialogDelete" max-width="500px">
-                <v-card>
-                  <v-card-title
-                    >¿Esta seguro que desea eliminar este elemento?</v-card-title
-                  >
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn depressed @click="closeDelete">Cancelar</v-btn>
-                    <v-btn
-                      depressed
-                      color="error"
-                      :loading="loading"
-                      @click="deleteItemConfirm(editedItem.userId)"
-                      >Eliminar</v-btn
-                    >
+                    <v-btn depressed color="primary" @click="close"> Cerrar </v-btn>
                     <v-spacer></v-spacer>
                   </v-card-actions>
                 </v-card>
@@ -174,12 +124,12 @@
             </v-card>
           </template>
           <template v-slot:item.actions="{ item }">
-            <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
+            <v-icon small @click="viewItem(item)"> mdi-eye </v-icon>
           </template>
           <template v-slot:no-data>
             <span
-              >La lista de usuarios esta vacía. Agrega un usuario para verlo en
-              la lista.</span
+              >La lista de usuarios esta vacía. Agrega un usuario para verlo en la
+              lista.</span
             >
           </template>
         </v-data-table>
@@ -191,7 +141,7 @@
 import axios from "axios";
 
 export default {
-  name: "Users",
+  name: "Payments",
   data: () => ({
     loading: true,
     dialog: false,
@@ -204,7 +154,6 @@ export default {
         value: "name",
       },
       { text: "Email", align: "start", value: "mail", sortable: false },
-      { text: "Teléfono", align: "start", value: "phoneNumber", sortable: false },
       { text: "Usuario", align: "start", value: "user", sortable: false },
       { text: "Rol", align: "start", value: "role", sortable: false },
       { text: "Actions", align: "center", value: "actions", sortable: false },
@@ -234,13 +183,21 @@ export default {
       user: "",
       password: "",
       isVerified: "",
-      subscriptionType: null,
+      subscription:{
+        finalizationDate: "",
+         subscriptionType: {
+           name: "",
+           price: "",
+         },
+      },
     },
+    historyItem: {},
+    defaultHisitoryItem: null,
   }),
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? "Nuevo Usuario" : "Editar Usuario";
+      return "Historial de pagos del usuario";
     },
   },
 
@@ -274,14 +231,25 @@ export default {
           console.log(response.status);
         }
       });
-      
+
       this.loading = false;
     },
 
-    editItem(item) {
+    viewItem(item) {
       this.editedIndex = this.users.indexOf(item);
       this.editedItem = Object.assign({}, item);
-      this.dialog = true;
+      axios
+        .get("payment/" + this.editedItem.userId)
+        .then((response) => {
+          if (response.status == 200) {
+            this.historyItem = response.data;
+            this.dialog = true;
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      //this.dialog = true;
     },
 
     deleteItem(item) {
@@ -297,14 +265,13 @@ export default {
           this.users.splice(this.editedIndex, 1);
           this.loading = false;
           let alert = {
-              alert: true,
-              alert_active: true,
-              alert_message: "Usuario eliminado correctamente.",
-              alert_color: "success"
-            };
-            this.$emit('chanceAlert', alert);
+            alert: true,
+            alert_active: true,
+            alert_message: "Usuario eliminado correctamente.",
+            alert_color: "success",
+          };
+          this.$emit("chanceAlert", alert);
           this.closeDelete();
-
         } else {
           console.log(response.status);
         }
@@ -315,6 +282,7 @@ export default {
       this.dialog = false;
       this.$nextTick(() => {
         this.editedItem = Object.assign({}, this.defaultItem);
+        this.historyItem = Object.assign({}, this.defaultHisitoryItem);
         this.editedIndex = -1;
       });
     },
@@ -329,7 +297,7 @@ export default {
 
     save(item) {
       if (this.editedIndex == -1) {
-        console.log(item)
+        console.log(item);
         this.loading = true;
         let json = {
           name: item.name,
