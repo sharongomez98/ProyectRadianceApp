@@ -42,16 +42,16 @@
           </v-list-item>
         </v-list-group>
       </v-list>
-
       <v-divider></v-divider>
       <v-list dense nav>
-        <v-subheader class="navSubtitle">Menú</v-subheader>
         <v-list-item-group active-class="deep-orange lighten-3" v-model="list">
           <v-list-item
             class="pa-2"
-            v-for="(item, index) in items"
+            mandatory
+            v-for="(item, index) in base"
             :key="index"
             :value="index"
+            :to="item.path"
           >
             <v-list-item-icon>
               <v-icon color="deep-orange darken-4">{{ item.icon }}</v-icon>
@@ -63,9 +63,28 @@
           </v-list-item>
         </v-list-item-group>
       </v-list>
-      <span>{{ this.list }}</span>
-      <span>{{ this.screenLoading }}</span>
       <v-divider></v-divider>
+      <v-list dense nav>
+        <v-subheader class="navSubtitle" v-if="!(this.role=='Lector')">Menú</v-subheader>
+        <v-list-item-group active-class="deep-orange lighten-3" v-model="list">
+          <v-list-item
+            class="pa-2"
+            mandatory
+            v-for="(item, index) in getItemList()"
+            :key="index"
+            :value="index"
+            :to="item.path"
+          >
+            <v-list-item-icon>
+              <v-icon color="deep-orange darken-4">{{ item.icon }}</v-icon>
+            </v-list-item-icon>
+
+            <v-list-item-content>
+              <v-list-item-title class="userTitle">{{ item.title }}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
     </v-navigation-drawer>
     <v-main>
       <div>
@@ -83,24 +102,7 @@
           {{ alert_message }}</v-alert
         >
       </div>
-      <div v-if="list == 0">
-        <home />
-      </div>
-      <div v-if="list == 1">
-        <Tags @chanceAlert="changeAlert($event)" />
-      </div>
-      <div v-if="list == 2">
-        <AboutUs />
-      </div>
-      <div v-if="list == 3">
-        <Users @chanceAlert="changeAlert($event)" />
-      </div>
-      <div v-if="list == 4">
-        <Payments @chanceAlert="changeAlert($event)" />
-      </div>
-      <div v-if="list == 5">
-        <SuscriptionTypes @chanceAlert="changeAlert($event)" />
-      </div>
+      <router-view @chanceAlert="changeAlert($event)" ></router-view>
     </v-main>
   </v-app>
 </template>
@@ -110,18 +112,12 @@ import store from "../../store/index";
 export default {
   name: "Main",
   components: {
-    home: () => import("./Home.vue"),
-    AboutUs: () => import("../WebPage/AboutUs.vue"),
-    Tags: () => import("./Tags.vue"),
-    SuscriptionTypes: () => import("./SuscriptionTypes.vue"),
-    Users: () => import("./Users.vue"),
-    Payments: ()=> import("./Payments.vue"),
-    LoadingView: () => import("./LoadingView.vue"),
   },
   data: () => ({
     list: 0,
     expandSideBar: store.getters["expandSideBar"],
     username: store.getters["username"],
+    role: store.getters["role"],
     drawer: true,
     alert: false,
     alert_active: false,
@@ -129,16 +125,24 @@ export default {
     alert_color: "",
     screenLoading: false,
     items: [
-      { title: "Home", icon: "mdi-home", path: "/home" },
-      { title: "Tags", icon: "mdi-tag", path: "/tags" },
-      { title: "Artículos", icon: "mdi-newspaper-variant", path: "/articles" },
-      { title: "Usuarios", icon: "mdi-account-multiple", path: "/users" },
-      { title: "Pagos", icon: "mdi-wallet", path: "/payments" },
-      { title: "Suscripciones", icon: "mdi-format-list-checks", path: "/suscriptions" },
-      { title: "Reportes", icon: "mdi-chart-tree", path: "/reports" },
+      { title: "Tags", icon: "mdi-tag", path: "/radiance/tags" },
+      { title: "Artículos", icon: "mdi-newspaper-variant", path: "/radiance/articles" },
+      { title: "Usuarios", icon: "mdi-account-multiple", path: "/radiance/users" },
+      { title: "Pagos", icon: "mdi-wallet", path: "/radiance/payments" },
+      { title: "Suscripciones", icon: "mdi-format-list-checks", path: "/radiance/suscriptions" },
+      { title: "Reportes", icon: "mdi-chart-tree", path: "/radiance/reports" },
+    ],
+    itemsEditor: [
+      { title: "Tags", icon: "mdi-tag", path: "/radiance/tags" },
+      { title: "Artículos", icon: "mdi-newspaper-variant", path: "/radiance/articles" },
+    ],
+    base: [
+      { title: "Home", icon: "mdi-home", path: "/radiance/home" },
+      { title: "Revista", icon: "mdi-newspaper-variant-outline", path: "/radiance/magazine" },
+      
     ],
     userMenu: [
-      { title: "Ver Perfil", icon: "mdi-account", to: "/contact" },
+      { title: "Ver Perfil", icon: "mdi-account", to: "/radiance/profile" },
       { title: "Salir", icon: "mdi-logout", to: "/login" },
     ],
   }),
@@ -146,6 +150,10 @@ export default {
     sideBarIcon() {
       return this.expandSideBar === true ? "mdi-pin" : "mdi-pin-off";
     },
+    computedItems() {
+      return this.items.map(this.mapItem);
+    },
+    
   },
   watch: {
     drawer: false,
@@ -158,6 +166,23 @@ export default {
   },
 
   methods: {
+    getItemList() {
+      if(this.role == "Lector") {
+        return [];
+      }else if(this.role == "Editor") {
+        return this.itemsEditor;
+      } else {
+        return this.items;
+      }
+      
+    },
+    mapItem(item) {
+      return {
+        ...item,
+        children: item.children ? item.children.map(this.mapItem) : undefined,
+        title: item.title,
+      };
+    },
     hideAlert() {
       window.setInterval(() => {
         this.alert = false;

@@ -6,7 +6,7 @@
           <v-container fluid>
             <v-layout align-center justify-center wrap>
               <v-card elevation="12" min-width="40vh" class="pa-6" width="120vh">
-                <h1 class="section-title text-center py-6">Bienvenido a Radiance!</h1>
+                <h1 class="section-title text-center py-6">Perfil de Usuario</h1>
                 <v-card-text>
                   <p class="description text-center pt-8 pb-4">
                     Para el proceso de registro de tu cuenta, por favor ingresa los datos
@@ -185,7 +185,7 @@
 import axios from "axios";
 
 export default {
-  name: "RegisterRadiance",
+  name: "Profile",
   data: () => ({
     editedItem: {
       userId: "",

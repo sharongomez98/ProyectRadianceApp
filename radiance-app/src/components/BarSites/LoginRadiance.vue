@@ -50,7 +50,11 @@
                         v-model="alert"
                         :value="alert_active"
                         :color="alert_color"
-                        :icon="alert_color =='success' ? 'mdi-check-circle' : 'mdi-alert-circle'"
+                        :icon="
+                          alert_color == 'success'
+                            ? 'mdi-check-circle'
+                            : 'mdi-alert-circle'
+                        "
                         dense
                         text
                         dismissible
@@ -71,7 +75,7 @@
                         dark
                         x-large
                         :loading="loading"
-                        @click="test"
+                        @click="logIn"
                         >Ingresar</v-btn
                       >
                     </v-col>
@@ -87,14 +91,17 @@
 </template>
 
 <script>
-import store from "../../store/index"
+import store from "../../store/index";
+import { mapGetters } from 'vuex'
+import axios from "axios";
+
 export default {
   name: "LoginRadiance",
   data: () => ({
-    error: store.getters["loginError"],
+    isAuth: "",
     alert: false,
     alert_active: false,
-    alert_message: "error",
+    alert_message: "",
     alert_color: "",
     alert_icon: "",
     loading: false,
@@ -104,31 +111,50 @@ export default {
       password: "",
     },
   }),
+  computed: {
+    ...mapGetters({
+      statusLogin: 'loginError'
+    })
+  },
+
+  created() {
+    this.initialize();
+  },
+
   methods: {
-    test() {
+    initialize() {
+      store.dispatch("clearUserData");
+    },
+
+    logIn() {
       this.loading = true;
-      console.log("user", this.user);
       let json = {
         username: this.user.username,
         password: this.user.password,
       };
-      store.dispatch("logIn", json);
-      this.loading = false;
-      console.log(this.error);
-      if (this.error != "200") {
+     
+      axios.post("login/", json).then((response) => {
+        if(response.status == 200) {
+          this.setAlert(true, "success", "Bienvenido a Radiance.");
+          this.alert = true;
+          let payload = {
+            accessToken: response.data.accessToken,
+            role: response.data.role,
+            username: json.username,
+          }
+          this.loading = false;
+           store.dispatch("logIn", payload);
+          
+        }
+      }).catch(error => {
+        this.setAlert(true, "error", "Usuario o contraseña incorrectos.");
         this.alert = true;
-        this.setSnackbar(
-          true,
-          "error",
-          "Usuario o contraseña incorrectos."
-        );
-        this.$router.push("/home");
-      } else {
-        this.setSnackbar(true, "success", "Ingresando a Radiance");
-      }
-      this.loading = false;
+        store.dispatch("clearUserData");
+        this.loading = false;
+      })
     },
-    setSnackbar(active, color, message) {
+
+    setAlert(active, color, message) {
       this.alert_active = active;
       this.alert_color = color;
       this.alert_message = message;
