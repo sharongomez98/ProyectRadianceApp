@@ -39,6 +39,15 @@ const routes = [
     },
     children: [
       {
+        name: 'Home',
+        path: 'home/',
+        component: () => import('@/components/RadianceApp/Home'),
+        meta: {
+          requiresAuth: true,
+          accessLevel:2
+        },
+      },
+      {
         name: 'Tags',
         path: 'tags/',
         component: () => import('@/components/RadianceApp/Tags'),
